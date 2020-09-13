@@ -1,18 +1,39 @@
 #!/usr/bin/env node
 'use strict';
 const mongoose = require ('mongoose');
-const MONGOOSE_URL = 'mongodb://localhost:27017/notes';
+// add it in .env
+const MONGOOSE_URL = 'mongodb://localhost:27017/notes'; 
+
 mongoose.connect(MONGOOSE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
 const Input = require('./lib/input.js');
 const Note = require('./lib/notes.js');
-const note = new Note();
-const options = new Input();
+const note = new Note(); // no constructor nth extra happens
+const options = new Input(); //we have a constructor it will do some stuff like: mapper
 
-note.execute(options);
-// note.deleteNote('5f5b5ffd7f8e9238902f1038');
-// console.log('*/*/**/*/****/**/****/');
-// note.list({});
-// console.log('*/*/**/*/****/**/****/');
+if (options.valid()) {
+  note.execute(options).then(result=> {
+    console.log({result});
+  }).then(()=>{
+    mongoose.disconnect();
+  });
+} else {
+  help(); 
+}
+
+function help() {
+  console.log(`to use this CLI application you need to use:
+      ./index.js -method "note" -cat "category description"
+      
+      add  
+        note is required 
+        category is required
+      list 
+        optional category can be requested
+      delete
+        note id is required 
+  `);
+}

@@ -13,6 +13,6 @@ const options = new Input();
 
 note.execute(options);
 // note.deleteNote('5f5b5ffd7f8e9238902f1038');
-console.log('*/*/**/*/****/**/****/');
-note.list({});
-console.log('*/*/**/*/****/**/****/');
+// console.log('*/*/**/*/****/**/****/');
+// note.list({});
+// console.log('*/*/**/*/****/**/****/');
